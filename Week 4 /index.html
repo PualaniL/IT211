@@ -1,68 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
-<body>
+<body> 
 
-<h1>Functions & validation</h1>
-
-<form id="form1" action="#" onsubmit="return validateForm(this);">
-  first name: <input type="text" name="firstname"><br>
-  last name: <input type="text" name="lastname"><br>
-  password: <input type="password" name="password"><br>
-
-  <button type="submit">Check</button>
-</form>
-
-<hr><div id="message"></div>
-
-<script>
-// Password validation function
-function validatePassword(password) {
-  // Password should be at least 8 characters
-  if (password.length < 8) {
-    return false;
-  }
-
-  // Password should contain one uppercase letter
-  if (!/[A-Z]/.test(password)) {
-    return false;
-  }
-
-  // Password should contain  one lowercase letter
-  if (!/[a-z]/.test(password)) {
-    return false;
-  }
-
-  // If all conditions pass, the password is then valid
-  return true;
-}
-
-// Form a validation function
-const validateForm = (myForm) => {
-  var firstname = myForm.firstname.value;
-  var lastname = myForm.lastname.value;
-  var password = myForm.password.value;
-
-  // show if first and last name values are missing
-  if (firstname.trim() === '' || lastname.trim() === '') {
-    $("#message").html("Please enter both first name and last name.");
-    return false;
-  }
-
-  // Confirm the password using the validatePassword function
-  if (!validatePassword(password)) {
-    $("#message").html("Invalid password. Password should be 8 characters, one uppercase letter, and one lowercase letter.");
-    return false;
-  }
-
-  // If all fields are valid, show a success message
-  $("#message").html("All fields are valid.");
-
-  return false; // stop page reload
-}
-</script>
-
-</body>
-</html>
+    <h1>Password Validator</h1>
+    
+    <form id="form1" action="#" onsubmit="return validateForm(this);">
+        First name: <input type="text" name="firstname"><br>
+        Last name: <input type="text" name="lastname"><br>
+        Password: <input type="password" name="password"><br>
+      
+        <button > Check </button>
+    </form>
+    
+    </body>
+    
+    <script>
+        // Password validation function
+        function validatePassword(password) {
+    
+        }
+    
+        // Form validation function
+        function validateForm(form) {
+            // Get the values entered by the user in the form fields
+            const firstName = form.firstname.value;
+            const lastName = form.lastname.value;
+            const password = form.password.value;
+    
+            // Check if any of the "fields" are empty. 
+            if (!firstName || !lastName || !password) {  
+                alert("Please fill in all subject fields.");
+                return false; // Stop the form submission as the form is not valid
+            }
+    
+            // Check if first and last name values are missing, Validate the password using the validatePassword function
+        
+            if (!validatePassword(password)) { //! Validate password using the validatePassword function
+                alert("Cannot use that passowrd. Please Create a password with 8 characters that conatin at least one upper case and one lower case letter");
+                return false; // Used a boolean value of fals to stop the for from submitting
+            }
+    
+            // If all fields are valid, reutrn a message to show a success message 
+            alert("All fields are valid.");
+            return true;
+        }
+    </script>
+    
+    
+    </html>
