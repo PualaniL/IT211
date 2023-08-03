@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+
+<h1>Robo Dealer</h1>
+
+<button onclick="dealHand();">Deal Hand</button>
+
+<hr>
+<div id="card_hand"></div>
+
+<script>
+
+// Define what the Card object is 
+function Card(value, suit) {
+  this.value = value;
+  this.suit = suit;
+}
+
+// Function that will generate the deck of cards
+const generateDeck = () => {
+  const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+  const deck = [];
+
+  for (let suit of suits) {
+    for (let value = 2; value <= 14; value++) {
+      deck.push(new Card(value, suit));
+    }
+  }
+
+  return deck;
+};
+
+// Global deck variable
+let deck = generateDeck();
+
+// Function that will randomly select 5 cards from the deck
+const dealHand = () => {
+  // Check if deck is empty, it is, regenerate it
+  if (deck.length === 0) {
+    deck = generateDeck();
+  }
+
+  // Clear the prior hand
+  $("#card_hand").empty();
+
+  // At random select 5 unique cards
+  const hand = [];
+  while (hand.length < 5 && deck.length > 0) {
+    const randomIndex = Math.floor(Math.random() * deck.length);
+    hand.push(deck[randomIndex]);
+    deck.splice(randomIndex, 1);
+  }
+
+  // Update 'card_hand' DIV with the selected cards' information
+  let handInfo = '';
+  for (let card of hand) {
+    handInfo += getCardName(card) + "<br>";
+  }
+  $("#card_hand").html(handInfo);
+
+  return false; // prevent page reload
+};
+
+// Function to get the name of the card (numeric value or face card name)
+const getCardName = (card) => {
+  const faceCards = { 11: "Jack", 12: "Queen", 13: "King", 14: "Ace" };
+  const valueName = faceCards[card.value] || card.value;
+  return valueName + " of " + card.suit;
+};
+
+</script>
+
+</body>
+</html>
